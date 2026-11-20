@@ -1,0 +1,47 @@
+* fmclient.nvim *
+
+Requires the `fmclient` executable in PATH (or set g:fmclient_cmd).
+
+Commands:
+  :FMClient              Open/close both panes (menu and work area).
+  :FMClientSync          Run fmclient send_receive and refresh.
+  :FMClientCompose ECHO  Compose an echomail message.
+  :FMClientNetmail [TO]  Compose a netmail message.
+  :FMClientSend          Send the current compose buffer.
+
+The menu header shows the network name from the policy and the user address.
+
+Menu (left pane) keys:
+  <CR> open echo/message
+  r    refresh
+  s    send_receive
+  e    compose an echo message
+  q    close both panes
+
+Work area (right pane) keys:
+  <CR> open selected message / run a protocol action
+  P    toggle protocol messages in the feed
+  q    back to previous list
+  u    back to previous list
+
+Protocol messages:
+  :FMClientProtocols [ECHO]  active protocols with voting actions
+  digits 1..9  cast a vote / choose a candidate
+  0            retract a vote
+  A            apply as a candidate in an election
+  R            respond to a refill (admin)
+
+Compose buffers use headers before a line containing only `--`:
+  Echo: <name> (or To: <address> for netmail)
+  Subject: <subject>
+  --
+  body
+Write the buffer (:w) or use <leader>s to queue and send through fmclient.
+
+Configuration:
+  g:fmclient_cmd   executable (default: launch dir, buffer dir, current dir,
+                   then PATH)
+  g:fmclient_data  data directory (default: data/ in the launch directory,
+                   buffer directory or current directory; relative values are
+                   resolved from the launch directory)
+  g:fmclient_date_format  strftime format (default "%Y-%m-%d %H:%M")
